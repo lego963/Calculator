@@ -354,12 +354,31 @@ namespace CalculatorWFA
         {
             try
             {
-
+                if (Calculator.NumberA == null)
+                {
+                    Calculator.NumberA = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
+                    Calculator.HistoryShow.Add(string.Format("Sqrt({0})", InputNumbLbl.Text));
+                    InputLbl.Text = Calculator.UpdateHistoryLog();
+                    InputNumbLbl.Text = Calculator.NumberA.ToString();
+                    CheckAnswer = true;
+                }
+                else
+                {
+                    Calculator.NumberB = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
+                    Calculator.HistoryShow.Add(string.Format("Sqrt({0})", InputNumbLbl.Text));
+                    Calculator.Equal();
+                    InputLbl.Text = Calculator.UpdateHistoryLog();
+                    InputNumbLbl.Text = Calculator.NumberA.ToString();
+                    CheckAnswer = true;
+                }
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
-
-                throw;
+                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
             }
         }
 
