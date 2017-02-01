@@ -39,5 +39,10 @@ namespace CalculatorWFA
             CF.Enabled = true;
             Close();
         }
+
+        private void HistoryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            CF.Enabled = true;
+        }
     }
 }

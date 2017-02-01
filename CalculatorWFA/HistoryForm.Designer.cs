@@ -76,6 +76,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HistoryForm";
             this.Text = "HistoryForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HistoryForm_FormClosed);
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.HistoryPnl.ResumeLayout(false);
             this.HistoryPnl.PerformLayout();

@@ -40,7 +40,7 @@ namespace BL
                     value = NumberA * NumberB;
                     break;
                 case ACTIONS.NOACTION:
-                    value = null;
+                    value = NumberA;
                     break;
                 default:
                     value = null;
