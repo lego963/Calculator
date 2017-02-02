@@ -521,5 +521,11 @@ namespace CalculatorWFA
             HF.Show();
         }
 
+        private void CalcForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            //switch (e)
+            //{
+            //}
+        }
     }
 }

@@ -494,6 +494,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CalcForm";
             this.Text = "Calculator";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CalcForm_KeyDown);
             this.InputPnl.ResumeLayout(false);
             this.ActionPnl.ResumeLayout(false);
             this.ResumeLayout(false);
