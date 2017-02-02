@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
 using BL;
 
@@ -13,213 +8,158 @@ namespace CalculatorWFA
 {
     public partial class CalcForm : Form
     {
-        public MathActions Calculator { get; set; }
-        public List<List<string>> History { get; set; }
+        public MathActions Calculator { get; set; } = new MathActions();
+        public List<List<string>> History { get; set; } = new List<List<string>>();
         public bool CheckAnswer { get; set; }
-        public HistoryForm HF { get; set; }
+        public HistoryForm Hf { get; set; }
         public event EventHandler ClearForm;
 
         public CalcForm()
         {
             InitializeComponent();
-            Calculator = new MathActions();
-            History = new List<List<string>>();
             ClearForm += ClearAllBtn_Click;
         }
 
         private void DotBtn_Click(object sender, EventArgs e)
         {
             if (InputNumbLbl.Text.Length == 0)
-            {
-                InputNumbLbl.Text = "0,";
-            }
+                InputNumbLbl.Text = @"0,";
             else
             {
+                InputNumbLbl.Text += @",";
                 double answer;
-                InputNumbLbl.Text += ",";
-                if (!double.TryParse(InputNumbLbl.Text, out answer)) InputNumbLbl.Text = InputNumbLbl.Text.Remove(InputNumbLbl.Text.Length - 1, 1);
+                if (!double.TryParse(InputNumbLbl.Text, out answer))
+                    InputNumbLbl.Text = InputNumbLbl.Text.Remove(InputNumbLbl.Text.Length - 1, 1);
             }
         }
 
-        #region Numbers
         private void ZeroBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '0';
-            }
             else
             {
                 InputNumbLbl.Text = 0.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void OneBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '1';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 1.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void TwoBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '2';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 2.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void ThreeBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '3';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 3.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void FourBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '4';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 4.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void FiveBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '5';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 5.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void SixBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '6';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 6.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void SevenBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '7';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 7.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void EightBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '8';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 8.ToString();
                 CheckAnswer = false;
             }
-
         }
 
         private void NineBtn_Click(object sender, EventArgs e)
         {
             if (!CheckAnswer)
-            {
                 InputNumbLbl.Text += '9';
-            }
             else
             {
                 if (Calculator.Action == ACTIONS.NOACTION)
-                {
-                    ClearForm.Invoke(sender, e);
-                }
+                    ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 9.ToString();
                 CheckAnswer = false;
             }
-
         }
-        #endregion
-
-        #region ActionsWithTwoNumbers
 
         private void PlusBtn_Click(object sender, EventArgs e)
         {
@@ -230,7 +170,7 @@ namespace CalculatorWFA
                     Calculator.NumberA = Convert.ToDouble(InputNumbLbl.Text);
                     if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
                     else CheckAnswer = false;
-                    Calculator.HistoryShow.Add(" + ");
+                    Calculator.HistoryShow.Add(@" + ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = string.Empty;
                     Calculator.Action = ACTIONS.PLUS;
@@ -238,7 +178,7 @@ namespace CalculatorWFA
                 else
                 {
                     Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
-                    Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(" + ");
+                    Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(@" + ");
                     Calculator.Equal();
                     Calculator.Action = ACTIONS.PLUS;
                     InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -248,11 +188,11 @@ namespace CalculatorWFA
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -283,11 +223,11 @@ namespace CalculatorWFA
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -318,11 +258,11 @@ namespace CalculatorWFA
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -353,15 +293,13 @@ namespace CalculatorWFA
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
-
-        #endregion
 
         #region ClearInputs
 
@@ -404,19 +342,19 @@ namespace CalculatorWFA
         {
             try
             {
-                double tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
-                Calculator.HistoryShow.Add(string.Format("Sqrt({0})", InputNumbLbl.Text));
+                var tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
+                Calculator.HistoryShow.Add($"Sqrt({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
-                InputNumbLbl.Text = tmpValue.ToString();
+                InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
                 CheckAnswer = true;
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -424,19 +362,19 @@ namespace CalculatorWFA
         {
             try
             {
-                double tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
-                Calculator.HistoryShow.Add(string.Format("Sqrt({0})", InputNumbLbl.Text));
+                var tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
+                Calculator.HistoryShow.Add($"Sqrt({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
-                InputNumbLbl.Text = tmpValue.ToString();
+                InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
                 CheckAnswer = true;
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -445,18 +383,18 @@ namespace CalculatorWFA
             try
             {
                 double tmpValue = 1F / Convert.ToDouble(InputNumbLbl.Text);
-                Calculator.HistoryShow.Add(string.Format("1/({0})", InputNumbLbl.Text));
+                Calculator.HistoryShow.Add($"1/({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
-                InputNumbLbl.Text = tmpValue.ToString();
+                InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
                 CheckAnswer = true;
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -473,18 +411,18 @@ namespace CalculatorWFA
                 {
                     tmpValue = (double)Calculator.NumberA * Convert.ToDouble(InputNumbLbl.Text) / 100F;
                 }
-                Calculator.HistoryShow.Add(string.Format("{0}%", InputNumbLbl.Text));
+                Calculator.HistoryShow.Add($"{InputNumbLbl.Text}%");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
-                InputNumbLbl.Text = tmpValue.ToString();
+                InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
                 CheckAnswer = true;
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "NullReferenceException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"NullReferenceException");
             }
             catch (FormatException)
             {
-                MessageBox.Show("Вы не ввели никаких значений", "FormatException");
+                MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
 
@@ -499,26 +437,29 @@ namespace CalculatorWFA
                 if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
                 else CheckAnswer = false;
                 Calculator.Equal();
-                double savedData = (double)Calculator.NumberA;
-                InputLbl.Text = Calculator.UpdateHistoryLog();
-                Calculator.HistoryShow.Add(" = ");
-                Calculator.HistoryShow.Add(Calculator.NumberA.ToString());
-                History.Add(Calculator.HistoryShow);
-                ClearForm.Invoke(sender, e);
-                InputNumbLbl.Text = savedData.ToString();
+                if (Calculator.NumberA != null)
+                {
+                    var savedData = (double)Calculator.NumberA;
+                    InputLbl.Text = Calculator.UpdateHistoryLog();
+                    Calculator.HistoryShow.Add(" = ");
+                    Calculator.HistoryShow.Add(Calculator.NumberA.ToString());
+                    History.Add(Calculator.HistoryShow);
+                    ClearForm?.Invoke(sender, e);
+                    InputNumbLbl.Text = savedData.ToString(CultureInfo.CurrentCulture);
+                }
                 CheckAnswer = true;
             }
             catch (InvalidOperationException)
             {
-                ClearForm.Invoke(sender, e);
-                InputNumbLbl.Text = tmpValue.ToString();
+                ClearForm?.Invoke(sender, e);
+                InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
             }
         }
 
         private void HistoryBtn_Click(object sender, EventArgs e)
         {
-            HF = new HistoryForm(this);
-            HF.Show();
+            Hf = new HistoryForm(this);
+            Hf.Show();
         }
 
         private void CalcForm_KeyDown(object sender, KeyEventArgs e)
