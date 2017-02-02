@@ -24,30 +24,29 @@ namespace BL
 
         public void Equal()
         {
-            double? value;
+            //double? value;
             switch (Action)
             {
                 case ACTIONS.MINUS:
-                    value = NumberA - NumberB;
+                    NumberA -= NumberB;
                     break;
                 case ACTIONS.PLUS:
-                    value = NumberA + NumberB;
+                    NumberA += NumberB;
                     break;
                 case ACTIONS.DIVIDE:
-                    value = NumberA / NumberB;
+                    NumberA /= NumberB;
                     break;
                 case ACTIONS.MULTIPLY:
-                    value = NumberA * NumberB;
+                    NumberA *= NumberB;
                     break;
                 case ACTIONS.NOACTION:
-                    value = NumberA;
+                    NumberA = NumberA;
                     break;
                 default:
-                    value = null;
+                    NumberA = null;
                     break;
             }
             Action = ACTIONS.NOACTION;
-            NumberA = value;
             NumberB = null;
         }
 
