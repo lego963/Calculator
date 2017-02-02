@@ -50,7 +50,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '1';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 1.ToString();
                 CheckAnswer = false;
@@ -63,7 +63,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '2';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 2.ToString();
                 CheckAnswer = false;
@@ -76,7 +76,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '3';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 3.ToString();
                 CheckAnswer = false;
@@ -89,7 +89,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '4';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 4.ToString();
                 CheckAnswer = false;
@@ -102,7 +102,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '5';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 5.ToString();
                 CheckAnswer = false;
@@ -115,7 +115,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '6';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 6.ToString();
                 CheckAnswer = false;
@@ -128,7 +128,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '7';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 7.ToString();
                 CheckAnswer = false;
@@ -141,7 +141,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '8';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 8.ToString();
                 CheckAnswer = false;
@@ -154,7 +154,7 @@ namespace CalculatorWFA
                 InputNumbLbl.Text += '9';
             else
             {
-                if (Calculator.Action == ACTIONS.NOACTION)
+                if (Calculator.Action == Actions.Noaction)
                     ClearForm?.Invoke(sender, e);
                 InputNumbLbl.Text = 9.ToString();
                 CheckAnswer = false;
@@ -173,14 +173,14 @@ namespace CalculatorWFA
                     Calculator.HistoryShow.Add(@" + ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = string.Empty;
-                    Calculator.Action = ACTIONS.PLUS;
+                    Calculator.Action = Actions.Plus;
                 }
                 else
                 {
                     Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
                     Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(@" + ");
                     Calculator.Equal();
-                    Calculator.Action = ACTIONS.PLUS;
+                    Calculator.Action = Actions.Plus;
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = Calculator.NumberA.ToString();
                     CheckAnswer = true;
@@ -208,14 +208,14 @@ namespace CalculatorWFA
                     Calculator.HistoryShow.Add(" - ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = string.Empty;
-                    Calculator.Action = ACTIONS.MINUS;
+                    Calculator.Action = Actions.Minus;
                 }
                 else
                 {
                     Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
                     Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(" - ");
                     Calculator.Equal();
-                    Calculator.Action = ACTIONS.MINUS;
+                    Calculator.Action = Actions.Minus;
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = Calculator.NumberA.ToString();
                     CheckAnswer = true;
@@ -243,14 +243,14 @@ namespace CalculatorWFA
                     Calculator.HistoryShow.Add(" / ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = string.Empty;
-                    Calculator.Action = ACTIONS.DIVIDE;
+                    Calculator.Action = Actions.Divide;
                 }
                 else
                 {
                     Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
                     Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(" / ");
                     Calculator.Equal();
-                    Calculator.Action = ACTIONS.DIVIDE;
+                    Calculator.Action = Actions.Divide;
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = Calculator.NumberA.ToString();
                     CheckAnswer = true;
@@ -278,14 +278,14 @@ namespace CalculatorWFA
                     Calculator.HistoryShow.Add(" * ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = string.Empty;
-                    Calculator.Action = ACTIONS.MULTIPLY;
+                    Calculator.Action = Actions.Multiply;
                 }
                 else
                 {
                     Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
                     Calculator.HistoryShow.Add(InputNumbLbl.Text); Calculator.HistoryShow.Add(" * ");
                     Calculator.Equal();
-                    Calculator.Action = ACTIONS.MULTIPLY;
+                    Calculator.Action = Actions.Multiply;
                     InputLbl.Text = Calculator.UpdateHistoryLog();
                     InputNumbLbl.Text = Calculator.NumberA.ToString();
                     CheckAnswer = true;
@@ -300,8 +300,6 @@ namespace CalculatorWFA
                 MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
-
-        #region ClearInputs
 
         private void ClearAllBtn_Click(object sender, EventArgs e)
         {
@@ -321,10 +319,6 @@ namespace CalculatorWFA
         {
             if (InputNumbLbl.Text.Length != 0) InputNumbLbl.Text = InputNumbLbl.Text.Remove(0, 1);
         }
-
-        #endregion
-
-        #region ActionsWithOneNumber
 
         private void PlusMinusBtn_Click(object sender, EventArgs e)
         {
@@ -425,8 +419,6 @@ namespace CalculatorWFA
                 MessageBox.Show(@"Вы не ввели никаких значений", @"FormatException");
             }
         }
-
-        #endregion
 
         private void EqualBtn_Click(object sender, EventArgs e)
         {

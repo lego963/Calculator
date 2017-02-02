@@ -1,62 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BL
 {
-    public enum ACTIONS { MINUS, PLUS, DIVIDE, MULTIPLY, NOACTION };
+    public enum Actions { Minus, Plus, Divide, Multiply, Noaction };
 
     public class MathActions
     {
         public double? NumberA { get; set; }
         public double? NumberB { get; set; }
-        public List<string> HistoryShow { get; set; }
-        public ACTIONS Action { get; set; }
-
-        public MathActions()
-        {
-            HistoryShow = new List<string>();
-            Action = ACTIONS.NOACTION;
-        }
+        public List<string> HistoryShow { get; set; } = new List<string>();
+        public Actions Action { get; set; } = Actions.Noaction;
 
         public void Equal()
         {
-            //double? value;
             switch (Action)
             {
-                case ACTIONS.MINUS:
+                case Actions.Minus:
                     NumberA -= NumberB;
                     break;
-                case ACTIONS.PLUS:
+                case Actions.Plus:
                     NumberA += NumberB;
                     break;
-                case ACTIONS.DIVIDE:
+                case Actions.Divide:
                     NumberA /= NumberB;
                     break;
-                case ACTIONS.MULTIPLY:
+                case Actions.Multiply:
                     NumberA *= NumberB;
                     break;
-                case ACTIONS.NOACTION:
+                case Actions.Noaction:
                     NumberA = NumberA;
                     break;
                 default:
                     NumberA = null;
                     break;
             }
-            Action = ACTIONS.NOACTION;
+            Action = Actions.Noaction;
             NumberB = null;
         }
 
         public string UpdateHistoryLog()
         {
-            string log = string.Empty;
+            var log = string.Empty;
             foreach (var item in HistoryShow)
-            {
                 log += item;
-            }
             return log;
         }
 
