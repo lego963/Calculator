@@ -5,7 +5,7 @@ namespace CalculatorWFA
 {
     public partial class HistoryForm : Form
     {
-        public CalcForm Cf { get; set; }
+        private CalcForm Cf { get; set; }
 
         public HistoryForm(CalcForm cf)
         {
@@ -23,7 +23,7 @@ namespace CalculatorWFA
                 {
                     HistoryLbl.Text += historyElement;
                 }
-                HistoryLbl.Text += @"\r\n";
+                HistoryLbl.Text += Environment.NewLine;
             }
         }
 
@@ -36,6 +36,13 @@ namespace CalculatorWFA
         private void HistoryForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Cf.Enabled = true;
+        }
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            HistoryLbl.Text = @"Журнала ещё нет";
+            Cf.Calculator.HistoryShow.Clear();
+            Cf.History.Clear();
         }
     }
 }

@@ -8,11 +8,12 @@ namespace CalculatorWFA
 {
     public partial class CalcForm : Form
     {
-        public MathActions Calculator { get; set; } = new MathActions();
-        public List<List<string>> History { get; set; } = new List<List<string>>();
-        public bool CheckAnswer { get; set; }
-        public HistoryForm Hf { get; set; }
+        public MathActions Calculator { get; private set; } = new MathActions();
+        public List<List<string>> History { get; } = new List<List<string>>();
+        private bool CheckAnswer { get; set; }
+        private HistoryForm Hf { get; set; }
         public event EventHandler ClearForm;
+        private bool CheckEqual { get; set; }
 
         public CalcForm()
         {
@@ -27,8 +28,9 @@ namespace CalculatorWFA
             else
             {
                 InputNumbLbl.Text += @",";
-                double answer;
-                if (!double.TryParse(InputNumbLbl.Text, out answer))
+#pragma warning disable 168
+                if (!double.TryParse(InputNumbLbl.Text, out double answer))
+#pragma warning restore 168
                     InputNumbLbl.Text = InputNumbLbl.Text.Remove(InputNumbLbl.Text.Length - 1, 1);
             }
         }
@@ -168,7 +170,11 @@ namespace CalculatorWFA
                 if (Calculator.NumberA == null)
                 {
                     Calculator.NumberA = Convert.ToDouble(InputNumbLbl.Text);
-                    if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    if (!CheckAnswer || CheckEqual)
+                    {
+                        CheckEqual = false;
+                        Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    }
                     else CheckAnswer = false;
                     Calculator.HistoryShow.Add(@" + ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -203,7 +209,11 @@ namespace CalculatorWFA
                 if (Calculator.NumberA == null)
                 {
                     Calculator.NumberA = Convert.ToDouble(InputNumbLbl.Text);
-                    if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    if (!CheckAnswer || CheckEqual)
+                    {
+                        CheckEqual = false;
+                        Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    }
                     else CheckAnswer = false;
                     Calculator.HistoryShow.Add(" - ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -238,7 +248,11 @@ namespace CalculatorWFA
                 if (Calculator.NumberA == null)
                 {
                     Calculator.NumberA = Convert.ToDouble(InputNumbLbl.Text);
-                    if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    if (!CheckAnswer || CheckEqual)
+                    {
+                        CheckEqual = false;
+                        Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    }
                     else CheckAnswer = false;
                     Calculator.HistoryShow.Add(" / ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -273,7 +287,11 @@ namespace CalculatorWFA
                 if (Calculator.NumberA == null)
                 {
                     Calculator.NumberA = Convert.ToDouble(InputNumbLbl.Text);
-                    if (!CheckAnswer) Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    if (!CheckAnswer || CheckEqual)
+                    {
+                        CheckEqual = false;
+                        Calculator.HistoryShow.Add(InputNumbLbl.Text);
+                    }
                     else CheckAnswer = false;
                     Calculator.HistoryShow.Add(" * ");
                     InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -336,6 +354,7 @@ namespace CalculatorWFA
         {
             try
             {
+                CheckEqual = false;
                 var tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
                 Calculator.HistoryShow.Add($"Sqrt({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
@@ -356,8 +375,9 @@ namespace CalculatorWFA
         {
             try
             {
-                var tmpValue = Math.Sqrt(Convert.ToDouble(InputNumbLbl.Text));
-                Calculator.HistoryShow.Add($"Sqrt({InputNumbLbl.Text})");
+                CheckEqual = false;
+                var tmpValue = Math.Pow(Convert.ToDouble(InputNumbLbl.Text), 2);
+                Calculator.HistoryShow.Add($"Sqr({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
                 InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
                 CheckAnswer = true;
@@ -376,7 +396,8 @@ namespace CalculatorWFA
         {
             try
             {
-                double tmpValue = 1F / Convert.ToDouble(InputNumbLbl.Text);
+                CheckEqual = false;
+                var tmpValue = 1F / Convert.ToDouble(InputNumbLbl.Text);
                 Calculator.HistoryShow.Add($"1/({InputNumbLbl.Text})");
                 InputLbl.Text = Calculator.UpdateHistoryLog();
                 InputNumbLbl.Text = tmpValue.ToString(CultureInfo.CurrentCulture);
@@ -396,6 +417,7 @@ namespace CalculatorWFA
         {
             try
             {
+                CheckEqual = false;
                 double tmpValue;
                 if (Calculator.NumberA == null)
                 {
@@ -422,7 +444,7 @@ namespace CalculatorWFA
 
         private void EqualBtn_Click(object sender, EventArgs e)
         {
-            double tmpValue = Convert.ToDouble(InputNumbLbl.Text);
+            var tmpValue = Convert.ToDouble(InputNumbLbl.Text);
             try
             {
                 Calculator.NumberB = Convert.ToDouble(InputNumbLbl.Text);
@@ -438,6 +460,7 @@ namespace CalculatorWFA
                     History.Add(Calculator.HistoryShow);
                     ClearForm?.Invoke(sender, e);
                     InputNumbLbl.Text = savedData.ToString(CultureInfo.CurrentCulture);
+                    CheckEqual = true;
                 }
                 CheckAnswer = true;
             }

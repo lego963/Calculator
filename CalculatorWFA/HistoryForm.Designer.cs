@@ -32,6 +32,7 @@
             this.HistoryLbl = new System.Windows.Forms.Label();
             this.CloseForm = new System.Windows.Forms.Button();
             this.HistoryPnl = new System.Windows.Forms.Panel();
+            this.ClearBtn = new System.Windows.Forms.Button();
             this.HistoryPnl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,13 +42,14 @@
             this.HistoryLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.HistoryLbl.Location = new System.Drawing.Point(12, 9);
             this.HistoryLbl.Name = "HistoryLbl";
-            this.HistoryLbl.Size = new System.Drawing.Size(0, 24);
+            this.HistoryLbl.Size = new System.Drawing.Size(164, 24);
             this.HistoryLbl.TabIndex = 0;
+            this.HistoryLbl.Text = "Журнала ещё нет";
             // 
             // CloseForm
             // 
             this.CloseForm.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CloseForm.Location = new System.Drawing.Point(165, 280);
+            this.CloseForm.Location = new System.Drawing.Point(12, 280);
             this.CloseForm.Name = "CloseForm";
             this.CloseForm.Size = new System.Drawing.Size(82, 23);
             this.CloseForm.TabIndex = 1;
@@ -65,11 +67,22 @@
             this.HistoryPnl.Size = new System.Drawing.Size(419, 274);
             this.HistoryPnl.TabIndex = 2;
             // 
+            // ClearBtn
+            // 
+            this.ClearBtn.Location = new System.Drawing.Point(332, 280);
+            this.ClearBtn.Name = "ClearBtn";
+            this.ClearBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClearBtn.TabIndex = 3;
+            this.ClearBtn.Text = "Clear";
+            this.ClearBtn.UseVisualStyleBackColor = true;
+            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
+            // 
             // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 310);
+            this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.CloseForm);
             this.Controls.Add(this.HistoryPnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -89,5 +102,6 @@
         private System.Windows.Forms.Label HistoryLbl;
         private System.Windows.Forms.Button CloseForm;
         private System.Windows.Forms.Panel HistoryPnl;
+        private System.Windows.Forms.Button ClearBtn;
     }
 }
